@@ -1,0 +1,479 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="Main" mva:VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="Main_1"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_6">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="project_name" />
+      <Variable x:TypeArguments="x:String" Name="wo_no" />
+      <Variable x:TypeArguments="x:String" Name="actual_file" />
+      <Variable x:TypeArguments="sd:DataTable" Name="configDT" />
+      <Variable x:TypeArguments="x:Double" Name="billingAmountPreTax" />
+      <Variable x:TypeArguments="x:Double" Name="billingAmountTax" />
+      <Variable x:TypeArguments="x:Double" Name="billingAmountExp" />
+      <Variable x:TypeArguments="x:String" Name="startDate" />
+      <Variable x:TypeArguments="x:String" Name="endDate" />
+      <Variable x:TypeArguments="x:String" Name="billingDate" />
+      <Variable x:TypeArguments="x:String" Name="collectingDate" />
+      <Variable x:TypeArguments="x:String" Name="billingMonth" />
+    </Sequence.Variables>
+    <ui:ReadCsvFile DataTable="[configDT]" Delimitator="Comma" DisplayName="Read CSV" Encoding="[“utf-8&quot;]" FilePath="C:\Users\lsun\Documents\UiPath\Billing_NASA\config.csv" sap2010:WorkflowViewState.IdRef="ReadCsvFile_2" />
+    <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[configDT]" DisplayName="For Each Row" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+      <ui:ForEachRow.Body>
+        <ActivityAction x:TypeArguments="sd:DataRow">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_13">
+            <Assign sap2010:WorkflowViewState.IdRef="Assign_1">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[project_name]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[CStr(row("project_name"))]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap2010:WorkflowViewState.IdRef="Assign_2">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[wo_no]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[CStr(row("wo_no"))]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap2010:WorkflowViewState.IdRef="Assign_3">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[actual_file]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[CStr(row("actual_file"))]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap2010:WorkflowViewState.IdRef="Assign_4">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[startDate]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[CStr(row("startDate"))]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap2010:WorkflowViewState.IdRef="Assign_5">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[endDate]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[CStr(row("endDate"))]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap2010:WorkflowViewState.IdRef="Assign_6">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[billingDate]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[CStr(row("billingDate"))]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap2010:WorkflowViewState.IdRef="Assign_7">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[collectingDate]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[CStr(row("collectingDate"))]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap2010:WorkflowViewState.IdRef="Assign_8">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[billingMonth]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[CStr(row("billingMonth"))]</InArgument>
+              </Assign.Value>
+            </Assign>
+          </Sequence>
+        </ActivityAction>
+      </ui:ForEachRow.Body>
+    </ui:ForEachRow>
+    <WriteLine DisplayName="Write Line" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[CStr(project_name)]" />
+    <WriteLine DisplayName="Write Line" sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="[CStr(actual_file)]" />
+    <WriteLine DisplayName="Write Line" sap2010:WorkflowViewState.IdRef="WriteLine_4" Text="[CStr(startDate) &amp; &quot;|&quot; &amp;CStr(endDate)]" />
+    <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Read Excel Application Scope" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" WorkbookPath="[CStr(actual_file)]">
+      <ui:ExcelApplicationScope.Body>
+        <ActivityAction x:TypeArguments="ui:WorkbookApplication">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_14">
+            <ui:ExcelReadCell Cell="D10" DisplayName="Read Cell" sap2010:WorkflowViewState.IdRef="ExcelReadCell_1" SheetName="請求詳細">
+              <ui:ExcelReadCell.Result>
+                <OutArgument x:TypeArguments="x:Double">[billingAmountPreTax]</OutArgument>
+              </ui:ExcelReadCell.Result>
+            </ui:ExcelReadCell>
+            <ui:ExcelReadCell Cell="F10" DisplayName="Read Cell" sap2010:WorkflowViewState.IdRef="ExcelReadCell_2" SheetName="請求詳細">
+              <ui:ExcelReadCell.Result>
+                <OutArgument x:TypeArguments="x:Double">[billingAmountTax]</OutArgument>
+              </ui:ExcelReadCell.Result>
+            </ui:ExcelReadCell>
+            <ui:ExcelReadCell Cell="H10" DisplayName="Read Cell" sap2010:WorkflowViewState.IdRef="ExcelReadCell_3" SheetName="請求詳細">
+              <ui:ExcelReadCell.Result>
+                <OutArgument x:TypeArguments="x:Double">[billingAmountExp]</OutArgument>
+              </ui:ExcelReadCell.Result>
+            </ui:ExcelReadCell>
+            <WriteLine DisplayName="Write Line" sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="[CStr(billingAmountPreTax)]" />
+          </Sequence>
+        </ActivityAction>
+      </ui:ExcelApplicationScope.Body>
+    </ui:ExcelApplicationScope>
+    <Sequence DisplayName="Web" sap2010:WorkflowViewState.IdRef="Sequence_5">
+      <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="IE" DisplayName="Attach Browser 'Login Page'" sap2010:WorkflowViewState.IdRef="BrowserScope_1" InformativeScreenshot="25f168d23d744be7bd4e424e386a39a1" Selector="&lt;html htmlwindowname='NASA2' title='Login' /&gt;">
+        <ui:BrowserScope.Body>
+          <ActivityAction x:TypeArguments="x:Object">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_2">
+              <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into 'INPUT  j_username'" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_1" SendWindowMessages="False" SimulateType="True" Text="lsun">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="ce6f3ad92eff5ccf866f6a734cebf869" Selector="&lt;webctrl id='j_username' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+              <Sequence DisplayName="Type password" sap2010:WorkflowViewState.IdRef="Sequence_1">
+                <Sequence.Variables>
+                  <Variable x:TypeArguments="x:String" Name="Password" />
+                </Sequence.Variables>
+                <ui:GetPassword DisplayName="Get Password" sap2010:WorkflowViewState.IdRef="GetPassword_1" ProtectedPassword="AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAx9QFIN1LIUmIeeRMYMZJTQAAAAACAAAAAAADZgAAwAAAABAAAAAjcP3/DwDyYmzFBzxijJOnAAAAAASAAACgAAAAEAAAALH0T1xw2M06ocWyAQQ7FbQQAAAA0J0lbHbmbi8TgAjtXUo7ABQAAABblAk9Bw1SV9hIeiYZbJlwaAEC7w==" Result="[Password]" />
+                <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into 'INPUT  j_password'" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_2" SendWindowMessages="False" SimulateType="True" Text="[Password]">
+                  <ui:TypeInto.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="295d4c31a4250c393c076bcce36e3445" Selector="&lt;webctrl id='j_password' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                  </ui:TypeInto.Target>
+                </ui:TypeInto>
+              </Sequence>
+              <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'INPUT'" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                <ui:Click.CursorPosition>
+                  <ui:CursorPosition OffsetX="30" OffsetY="7" Position="TopLeft" />
+                </ui:Click.CursorPosition>
+                <ui:Click.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="d072ba32692802a3fb3ba181e7e0faf3" Selector="&lt;webctrl name='login' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                </ui:Click.Target>
+              </ui:Click>
+              <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'A  http://nasa/nasa2/bi...'" sap2010:WorkflowViewState.IdRef="Click_2" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                <ui:Click.CursorPosition>
+                  <ui:CursorPosition OffsetX="16" OffsetY="4" Position="TopLeft" />
+                </ui:Click.CursorPosition>
+                <ui:Click.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="64f5b336c40fcea500bc285487484cf5" Selector="&lt;webctrl aaname='Invoice' parentid='primary-nav' tag='A' /&gt;" WaitForReady="COMPLETE" />
+                </ui:Click.Target>
+              </ui:Click>
+              <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'A  http://nasa/nasa2/bi...'" sap2010:WorkflowViewState.IdRef="Click_3" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                <ui:Click.CursorPosition>
+                  <ui:CursorPosition OffsetX="51" OffsetY="3" Position="TopLeft" />
+                </ui:Click.CursorPosition>
+                <ui:Click.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="fc2ed25978d93d8417c80e1299f6e0a7" Selector="&lt;webctrl aaname='Create Invoice' parentid='main' tag='A' /&gt;" WaitForReady="COMPLETE" />
+                </ui:Click.Target>
+              </ui:Click>
+              <ui:SelectItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Item 'SELECT  form1_pmBasicIn...'" sap2010:WorkflowViewState.IdRef="SelectItem_1" Item="NIHON SEKKEI onsite development(SDC)">
+                <ui:SelectItem.Items>
+                  <scg:List x:TypeArguments="x:String" Capacity="8">
+                    <x:String>NIHON SEKKEI onsite development(SDC)</x:String>
+                    <x:String>(GDC)WAF Development</x:String>
+                    <x:String>Supply And Demand Template - FY19</x:String>
+                    <x:String>Management information advancement(SAS)</x:String>
+                    <x:String>(SDC)Supply and Demand Template- FY19</x:String>
+                  </scg:List>
+                </ui:SelectItem.Items>
+                <ui:SelectItem.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="f27ad94bad6dd8f364dd1ff8111dd477" Selector="&lt;webctrl id='form1_pmBasicInfoId' tag='SELECT' /&gt;" WaitForReady="COMPLETE" />
+                </ui:SelectItem.Target>
+              </ui:SelectItem>
+              <ui:SelectItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Item 'SELECT  form1_contractId'" sap2010:WorkflowViewState.IdRef="SelectItem_2" Item="NHN001919C: NIHON SEKKEI.Inc_AMO 2019_2019/04/01-2020/03/31_WO:1803059">
+                <ui:SelectItem.Items>
+                  <scg:List x:TypeArguments="x:String" Capacity="16">
+                    <x:String>NHN000117C: NIHON SEKKEI.Inc_Development for enterprise system_2016/05/23-2016/09/30_WO:1600762</x:String>
+                    <x:String>NHN000417C: NIHON SEKKEI.Inc_Development for enterprise system_2016/10/1-2016/10/31_WO:1601576</x:String>
+                    <x:String>NHN000917C: NIHON SEKKEI.Inc_Development for enterprise system_2016/11/01-2016/11/12_WO:1601878</x:String>
+                    <x:String>NHN001617C: NIHON SEKKEI.Inc_Development for enterprise system_2016/11/14-2017/10/31</x:String>
+                    <x:String>NHN000918C: NIHON SEKKEI.Inc_AMO 2017_2017/10/01-2018/03/31_WO:1701258</x:String>
+                    <x:String>NHN001018C: NIHON SEKKEI.Inc_Development for enterprise system_2017/11/01-2017/12/31_WO:1701169</x:String>
+                    <x:String>NHN001318C: NIHON SEKKEI.Inc_AMO 2017_2018/01/01-2018/03/31_WO:1701728</x:String>
+                    <x:String>NHN002218C: NIHON SEKKEI.Inc_AMO 2017_03/05/2018-05/32/2018_WO:1702290</x:String>
+                    <x:String>NHN000619C: avex Inc-AMO 2018.1Q_2018/06/04-2018/06/30_WO:1800255</x:String>
+                    <x:String>NHN000819C: avex Inc-AMO 2018.1Q_2018/07/01-2018/08/31_WO:1800704</x:String>
+                    <x:String>NHN001519C: NIHON SEKKEI.Inc_AMO 2018_2018/09/01-2019/03/31_WO:1801415</x:String>
+                    <x:String>NHN001919C: NIHON SEKKEI.Inc_AMO 2019_2019/04/01-2020/03/31_WO:1803059</x:String>
+                  </scg:List>
+                </ui:SelectItem.Items>
+                <ui:SelectItem.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="c8c755bd64d9dd8bfc5424e81659dbe6" Selector="&lt;webctrl id='form1_contractId' tag='SELECT' /&gt;" WaitForReady="COMPLETE" />
+                </ui:SelectItem.Target>
+              </ui:SelectItem>
+              <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into 'INPUT  open'" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_3" SendWindowMessages="False" SimulateType="True" Text="[CStr(startDate)]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="8baa326ad69b1bb6f327dbaa3856eaa3" Selector="&lt;webctrl id='open' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+              <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into 'INPUT  end'" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_4" SendWindowMessages="False" SimulateType="True" Text="[CStr(endDate)]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="55b91fb4887dcde2ef0805e615d61df1" Selector="&lt;webctrl id='end' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+              <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'INPUT  form1_buttonName'" sap2010:WorkflowViewState.IdRef="Click_6" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                <ui:Click.CursorPosition>
+                  <ui:CursorPosition OffsetX="113" OffsetY="18" Position="TopLeft" />
+                </ui:Click.CursorPosition>
+                <ui:Click.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="a95a7a019126fe7b041418ccaca61a59" Selector="&lt;webctrl aaname='Generate Invoice' id='form1_buttonName' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                </ui:Click.Target>
+              </ui:Click>
+            </Sequence>
+          </ActivityAction>
+        </ui:BrowserScope.Body>
+      </ui:BrowserScope>
+      <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" DisplayName="Attach Window 'Messagefr Dialog'" sap2010:WorkflowViewState.IdRef="WindowScope_1" Selector="&lt;wnd app='iexplore.exe' cls='#32770' title='Message from webpage' /&gt;">
+        <ui:WindowScope.Body>
+          <ActivityAction x:TypeArguments="x:Object">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_3">
+              <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Button'" sap2010:WorkflowViewState.IdRef="Click_7" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                <ui:Click.CursorPosition>
+                  <ui:CursorPosition OffsetX="28" OffsetY="9" Position="TopLeft" />
+                </ui:Click.CursorPosition>
+                <ui:Click.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="417e7168a48424f706895a100fc89342" Selector="&lt;wnd ctrlid='1' title='OK' /&gt;" WaitForReady="INTERACTIVE" />
+                </ui:Click.Target>
+              </ui:Click>
+            </Sequence>
+          </ActivityAction>
+        </ui:WindowScope.Body>
+      </ui:WindowScope>
+      <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="IE" DisplayName="Attach Browser 'NASAII In Page'" sap2010:WorkflowViewState.IdRef="BrowserScope_2" InformativeScreenshot="25f168d23d744be7bd4e424e386a39a1" Selector="&lt;html htmlwindowname='NASA2' title='NASAII - Invoices' /&gt;">
+        <ui:BrowserScope.Body>
+          <ActivityAction x:TypeArguments="x:Object">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="billingDetailPage" sap2010:WorkflowViewState.IdRef="Sequence_4">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="x:String" Default="5340" Name="billingExp" />
+              </Sequence.Variables>
+              <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into 'INPUT  billInvCreateInv...'" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_5" SendWindowMessages="False" SimulateType="True" Text="[&quot;Billing of WO:&quot; &amp; wo_no &amp; &quot;_&quot; &amp; CStr(billingMonth)]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="0ddcb34026c027b838ef06015c251226" Selector="&lt;webctrl id='billInvCreateInvoice_bilTitle' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+              <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into 'INPUT  bilBillingDate'" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_11" SendWindowMessages="False" SimulateType="True" Text="[CStr(billingDate)]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="07bc3b060ff22a26271fa4df23d6dd74" Selector="&lt;webctrl id='bilBillingDate' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+              <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into 'INPUT  bilCollectDate'" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_12" SendWindowMessages="False" SimulateType="True" Text="[CStr(collectingDate)]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="4b5f4ee523605d8cb44a63cb47805d45" Selector="&lt;webctrl id='bilCollectDate' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+              <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into 'INPUT  billInvCreateInv...'" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_6" SendWindowMessages="False" SimulateType="True">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="7f64e889247bc0de8e285ac08567ce25" Selector="&lt;webctrl id='billInvCreateInvoice_bilComment' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                </ui:TypeInto.Target>
+                <ui:TypeInto.Text>
+                  <InArgument x:TypeArguments="x:String">
+                    <Literal x:TypeArguments="x:String" Value="" />
+                  </InArgument>
+                </ui:TypeInto.Text>
+              </ui:TypeInto>
+              <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into 'INPUT  billInvCreateInv...'" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_7" SendWindowMessages="False" SimulateType="True" Text="[CStr(billingAmountPreTax)]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="ff1b77af58847244d74c11e60243e719" Selector="&lt;webctrl id='billInvCreateInvoice_bilServiceBilling' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+              <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into 'INPUT  billInvCreateInv...'" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_8" SendWindowMessages="False" SimulateType="True" Text="6.8">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="d4c468c5bf1709cf922970e6574f92c6" Selector="&lt;webctrl id='billInvCreateInvoice_bilTaxRate' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+              <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into 'INPUT  billInvCreateInv...'" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_9" SendWindowMessages="False" SimulateType="True" Text="[CStr(billingAmountTax)]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="1ccf41e217a1a48b1ff658b8a5c72c19" Selector="&lt;webctrl id='billInvCreateInvoice_bilTaxBilling' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+              <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into 'INPUT  billInvCreateInv...'" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_10" SendWindowMessages="False" SimulateType="True" Text="[CStr(billingAmountExp)]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="c49a20eaad22cc5b702a279f8046706a" Selector="&lt;webctrl id='billInvCreateInvoice_bilExpenseBilling' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+            </Sequence>
+          </ActivityAction>
+        </ui:BrowserScope.Body>
+      </ui:BrowserScope>
+    </Sequence>
+    <sads:DebugSymbol.Symbol>dzVDOlxVc2Vyc1xsc3VuXERvY3VtZW50c1xVaVBhdGhcQmlsbGluZ19OQVNBXE1haW4ueGFtbIMBPwPxAg4CAQFOBU7lAQMBnQFPBZkBFQIBeZoBBZoBdQIBdpsBBZsBdAIBc5wBBZwBmQECAW+dAQW3ASACAVm4AQXvAhACAQJOYE5wAwGhAU4fTisDAZ8BTnpOsgEDAZ4BTzZPQgMBmwFVC5YBFgIBepoBXJoBcgIBd5sBXJsBcQIBdJwBXJwBlgECAXCdAaUBnQG6AQIBbaMBC7QBFgIBWrkBB6ACGQIBLaECB7MCGAIBJrQCB+4CGQIBA1YNXRYDAZcBXg1lFgMBkwFmDW0WAwGPAW4NdRYDAYsBdg19FgMBhwF+DYUBFgMBgwGGAQ2NARYCAX+OAQ2VARYCAXukAQ2oASACAWipAQ2tASACAWOuAQ2yASACAV6zAQ2zAYQBAgFbuQGaArkBzwICAVi/AQ2dAhgCAS6hAtoBoQKmAgIBLKcCDbACGAIBJ7QCngK0At8CAgElugIN6wIYAgEEWzhbUwMBmgFYOVhHAwGYAWM4Y0wDAZYBYDlgQAMBlAFrOGtSAwGSAWg5aEYDAZABczhzUAMBjgFwOXBEAwGMAXs4e04DAYoBeDl4QgMBiAGDATiDAVIDAYYBgAE5gAFGAwGEAYsBOIsBVQMBggGIATmIAUkDAYABkwE4kwFTAgF+kAE5kAFHAgF8pAEkpAEpAgFspgE5pgFOAgFqpAF+pAGEAQIBaakBJKkBKQIBZ6sBOasBSwIBZakBfqkBhAECAWSuASSuASkCAWKwATmwAUsCAWCuAX6uAYQBAgFfswFkswGBAQIBXMABD8QBHQIBVcUBD88BGgIBTdABD9cBGgIBSdgBD98BGgIBReABD+cBGgIBQegBD/UBHwIBPvYBD4oCHwIBO4sCD48CHQIBN5ACD5QCHQIBM5UCD5wCGgIBL6gCD68CGgIBKLwCPrwCRAIBBb4CD8ICHQIBIMMCD8cCHQIBHMgCD8wCHQIBGM0CD9YCHQIBFdcCD9sCHQIBEdwCD+ACHQIBDuECD+UCHQIBCuYCD+oCHQIBBsIBogHCAdEBAgFXwAGsAsABsgICAVbJARHJAecCAgFSygERzgEfAgFO1QGiAdUBzgECAUzSATvSAT4CAUvSAS7SATICAUrdAaIB3QHlAQIBSNoBO9oBPgIBR9oBLtoBMgIBRuUBogHlAeUBAgFE4gE74gE+AgFD4gEu4gEyAgFC6AHRAegB9wECAT/zAaIB8wHbAQIBQPYBzwH2AZcCAgE8iAKiAYgC2AECAT2NAqIBjQLLAQIBOosCpgKLArkCAgE4kgKiAZICygECATaQAqUCkAK2AgIBNJoCogGaAvEBAgEylwI8lwJAAgExlwIulwIzAgEwrQKiAa0CxwECASuqAjuqAj4CASqqAi6qAjICASnAAqIBwALkAQIBJL4CtQK+AowDAgEhxQKiAcUC1QECAR/DArECwwLGAgIBHcoCogHKAtUBAgEbyAKxAsgCyQICARnPAqIBzwLmAQIBF9MCFdMCRAIBFtkCogHZAu0BAgEU1wK1AtcC0gICARLeAqIB3gLmAQIBENwCtQLcAroCAgEP4wKiAeMC6QECAQ3hArUC4QLPAgIBC+gCogHoAu0BAgEJ5gK2AuYC0AICAQfJAdgCyQHkAgIBU8wBpAHMAdMBAgFRygGuAsoBugICAU8=</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="ReadCsvFile_2" sap:VirtualizedContainerService.HintSize="436,59" />
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="Assign_4" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="Assign_5" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="Assign_6" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="Assign_7" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="Assign_8" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="Sequence_13" sap:VirtualizedContainerService.HintSize="264,884">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEachRow_1" sap:VirtualizedContainerService.HintSize="436,1032" />
+      <sap2010:ViewStateData Id="WriteLine_1" sap:VirtualizedContainerService.HintSize="436,61" />
+      <sap2010:ViewStateData Id="WriteLine_2" sap:VirtualizedContainerService.HintSize="436,61" />
+      <sap2010:ViewStateData Id="WriteLine_4" sap:VirtualizedContainerService.HintSize="436,61" />
+      <sap2010:ViewStateData Id="ExcelReadCell_1" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="ExcelReadCell_2" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="ExcelReadCell_3" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="WriteLine_3" sap:VirtualizedContainerService.HintSize="314,61" />
+      <sap2010:ViewStateData Id="Sequence_14" sap:VirtualizedContainerService.HintSize="336,482">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelApplicationScope_1" sap:VirtualizedContainerService.HintSize="436,591" />
+      <sap2010:ViewStateData Id="TypeInto_1" sap:VirtualizedContainerService.HintSize="336,134" />
+      <sap2010:ViewStateData Id="GetPassword_1" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="TypeInto_2" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="336,320">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_1" sap:VirtualizedContainerService.HintSize="336,106" />
+      <sap2010:ViewStateData Id="Click_2" sap:VirtualizedContainerService.HintSize="336,106" />
+      <sap2010:ViewStateData Id="Click_3" sap:VirtualizedContainerService.HintSize="336,106" />
+      <sap2010:ViewStateData Id="SelectItem_1" sap:VirtualizedContainerService.HintSize="336,134" />
+      <sap2010:ViewStateData Id="SelectItem_2" sap:VirtualizedContainerService.HintSize="336,134" />
+      <sap2010:ViewStateData Id="TypeInto_3" sap:VirtualizedContainerService.HintSize="336,134" />
+      <sap2010:ViewStateData Id="TypeInto_4" sap:VirtualizedContainerService.HintSize="336,134" />
+      <sap2010:ViewStateData Id="Click_6" sap:VirtualizedContainerService.HintSize="336,106" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="358,1898">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="BrowserScope_1" sap:VirtualizedContainerService.HintSize="414,2044">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_7" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="336,230">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WindowScope_1" sap:VirtualizedContainerService.HintSize="414,338" />
+      <sap2010:ViewStateData Id="TypeInto_5" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="TypeInto_11" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="TypeInto_12" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="TypeInto_6" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="TypeInto_7" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="TypeInto_8" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="TypeInto_9" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="TypeInto_10" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="336,1476">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="BrowserScope_2" sap:VirtualizedContainerService.HintSize="414,1622" />
+      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="436,4208">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="458,6437">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Main_1" sap:VirtualizedContainerService.HintSize="498,6517" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>
